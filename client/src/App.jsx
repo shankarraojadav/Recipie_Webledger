@@ -8,6 +8,8 @@ import { useSelector, useDispatch } from "react-redux";
 import SideNavbar from "./components/SideNavbar";
 import { useEffect } from "react";
 import { verifyToken } from "./service/api";
+import RecipeDetails from "./components/scenes/description/RecipeDetails";
+import SearchResults from "./components/scenes/searchresults/SearchResults";
 
 export default function App () {
 
@@ -38,6 +40,8 @@ export default function App () {
         <Route path="/" element={<Login />} />
         <Route path="/home" element={<Home />} />
         <Route path="/favourite" element={<Favourites />} />
+        <Route path="/recipe/:id" element={<RecipeDetails />} />
+        <Route path="/search" element={<SearchResults />} />
       </Routes>
       {isLoggedIn && <SideNavbar />}
     </Box>

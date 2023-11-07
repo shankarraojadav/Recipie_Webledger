@@ -2,7 +2,7 @@ import { Box, Typography } from "@mui/material";
 import { theme } from "../../../theme";
 import SearchItem from "./Search";
 import { getRecipies } from "../../service/api";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import RecipiesList from "./recipieslist/RecipieList";
 
@@ -14,8 +14,7 @@ export default function Home() {
   }, []);
 
   const getRecipiesData = async () => {
-    const response = await dispatch(getRecipies());
-    console.log(response);
+    dispatch(getRecipies());
   };
 
   return (

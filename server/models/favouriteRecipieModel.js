@@ -6,7 +6,10 @@ const favouriteSchema = new mongoose.Schema({
     ref: 'SignIn',
     required: true
   },
-  id: String,
+  id: {
+    type: String,
+    unique: true,
+  },
   title: String,
   image: String,
   summary: String,

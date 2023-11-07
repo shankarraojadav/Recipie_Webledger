@@ -79,8 +79,79 @@ export const getRecipieById = createAsyncThunk("recipieId", async (id, {rejectWi
       }
     });
 
-    console.log(response)
+    return response.data;
   } catch (error) {
-    console.log(error)
+     return rejectWithValue(
+       "Failed to fetch recipies data by Id, please try after some time."
+     );
+  }
+});
+
+
+// get all favourites
+
+export const getAllFavourites = createAsyncThunk("favourites", 
+async (_, {rejectWithValue}) => {
+  const token = localStorage.getItem('jwt');
+  console.log("favoruitesss")
+  try {
+    const response = await axios.get(`${url}/getAllFav`, {
+      headers: {
+        authorization: "Bearer" + token,
+        Accept: "application/json",
+      },
+    });
+    console.log("favourites",response);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+     return rejectWithValue(
+       "Failed to fetch fav recipies data, please try after some time."
+     );
+  }
+});
+
+
+// delete favourite item
+
+export const deleteRecipe = createAsyncThunk("delete", async (id, {rejectWithValue}) => {
+  try {
+    const token = localStorage.getItem("jwt");
+
+    const response = await axios.delete(`${url}/deleteRecipe/${id}`,  {
+      headers: {
+        authorization: "Bearer" + token,
+        Accept: "application/json"
+      }
+    });
+// console.log(response.data)
+    return response.data
+  } catch (error) {
+    console.log(error);
+    return rejectWithValue("Failed to delete Item")
+  }
+});
+
+
+// get by keywords
+
+export const searchByKeywords = createAsyncThunk("keywords", async (keyword, {rejectWithValue}) => {
+  try {
+    const token = localStorage.getItem("jwt");
+
+    const response = await axios.post(`${url}/searchByKeyword`, keyword, {
+      headers: {
+        authorization: "Bearer" + token,
+        Accept: "application/json"
+      }
+    });
+
+    console.log(response.data)
+    return response.data;
+    
+  } catch (error) {
+     return rejectWithValue(
+       "Failed to fetch  recipies data by keywords, please try after some time."
+     );
   }
 })
