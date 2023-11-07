@@ -27,9 +27,10 @@
   padding: 2vh;
 }
 
-.ingredients {
+.ingredients  {
   margin-top: 5vh;
-  font-size: 3vh;
+  font-size: 2.5vh;
+  line-height: 1.5;
 }
 
 .instructions {
