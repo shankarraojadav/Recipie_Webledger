@@ -27,3 +27,13 @@ export const googleSignin = async (req, res) => {
     res.status(400).json(error);
   }
 };
+
+
+export const verifyToken = async (req, res) => {
+  try {
+    const user = req.user;
+    return res.status(200).json(user);
+  } catch (error) {
+    res.status(400).json("Error while verifying token", error)
+  }
+}

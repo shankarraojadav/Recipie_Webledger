@@ -1,5 +1,5 @@
 import {  createSlice } from "@reduxjs/toolkit";
-import { googleAuth } from "../service/api";
+import { googleAuth, verifyToken } from "../service/api";
 
 
 const initialState = {
@@ -13,18 +13,31 @@ const AuthSlice = createSlice({
     name: "login",
     initialState,
     extraReducers: (builder) => {
-        builder.addCase(googleAuth.pending, (state) => {
+        builder
+          .addCase(googleAuth.pending, (state) => {
             state.isLoading = true;
-        })
-        .addCase(googleAuth.fulfilled, (state, action) => {
+          })
+          .addCase(googleAuth.fulfilled, (state, action) => {
             state.user = action.payload;
             state.isLoggedIn = true;
             state.isLoading = false;
-        })
-        .addCase(googleAuth.rejected, (state, action) => {
+          })
+          .addCase(googleAuth.rejected, (state, action) => {
             state.isLoading = false;
             state.error = action.payload;
-        })
+          })
+          .addCase(verifyToken.pending, (state) => {
+            state.isLoading = true;
+          })
+          .addCase(verifyToken.fulfilled, (state, action) => {
+            state.user = action.payload;
+            state.isLoading = false;
+            state.isLoggedIn = true;
+          })
+          .addCase(verifyToken.rejected, (state, action) => {
+            state.isLoading = false;
+            state.error = action.payload.message;
+          });
     }
 });
 

@@ -5,26 +5,21 @@ import { auth } from "../auth/firebaseConfig";
 import { googleAuth } from "../service/api";
 import { useDispatch, useSelector } from "react-redux";
 import { useContext, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import { NotificationContext } from "./Notification";
 
 export default function Login() {
   const dispatch = useDispatch();
 
-  const navigate = useNavigate();
-
   const { user, isLoading, isLoggedIn, error } = useSelector(
     (state) => state.login || {}
   );
 
-  useEffect(() => {
-    if (user && user.jwtToken) {
-      navigate('/home');
-      localStorage.setItem('jwt', user.jwtToken);
-      console.log('hi');
-    }
-  }, [user, navigate]);
 
+  useEffect(() => {
+    if (user) {
+      localStorage.setItem("jwt", user?.jwtToken);
+    }
+  }, [user]);
   //error handling
   const { updateNotification } = useContext(NotificationContext);
 

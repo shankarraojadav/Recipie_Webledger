@@ -11,17 +11,19 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useSelector } from "react-redux";
+import SearchItem from "./Search";
+import { theme } from "../../../theme";
 
 export default function Navbar() {
   const navigate = useNavigate();
 
   const [anchorEl, setAnchorEl] = useState(null);
 
-  const { user } = useSelector((state) => state.login || {});
+  const { user, isLoggedIn } = useSelector((state) => state.login || {});
 
   const { photoURL } = user || {};
 
-//   console.log(photoURL)
+  //   console.log(photoURL)
 
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -33,25 +35,25 @@ export default function Navbar() {
 
   const handleLogout = () => {
     localStorage.removeItem("jwt");
-
     navigate("/");
-    window.location.reload();
   };
+
   return (
     <AppBar position="fixed">
       <Toolbar
         sx={{
-          background: "#fff",
+          background: "#D7CEF7",
           color: "#000",
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
         }}
       >
+        {/* logo */}
         <Box
           component="img"
           src="https://res.cloudinary.com/dflhxdxgb/image/upload/v1699110299/mum_s_kitchen-removebg-preview_d1lqnr.png"
-          sx={{width:"8vh"}}
+          sx={{ width: "8vh" }}
         />
         <Box
           sx={{
@@ -60,12 +62,18 @@ export default function Navbar() {
             alignItems: "center",
           }}
         >
+          {/* search box */}
           <Box
-          // sx={{
-          //   mr: "10vh",
-          //   [theme.breakpoints.down("ms2")]: { display: "none" },
-          // }}
+            sx={{
+              mr: "10vh",
+              [theme.breakpoints.down("md")]: { display: "none" },
+            }}
           >
+            <SearchItem />
+          </Box>
+
+          {/* routes */}
+          <Box sx={{ [theme.breakpoints.down("sm")]: { display: "none" } }}>
             <Link to="/home" style={{ textDecoration: "none" }}>
               <Typography
                 sx={{
@@ -81,8 +89,12 @@ export default function Navbar() {
             </Link>
           </Box>
 
-         
-          <Box sx={{ml:"10vh"}}>
+          <Box
+            sx={{
+              ml: "10vh",
+              [theme.breakpoints.down("sm")]: { display: "none" },
+            }}
+          >
             <Link to="/favourite" style={{ textDecoration: "none" }}>
               <Typography
                 sx={{
