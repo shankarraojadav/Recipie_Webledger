@@ -3,12 +3,12 @@ import jwt from "jsonwebtoken";
 
 export const Auth = async (req, res, next) => {
   try {
-    const token = req.headers.authorization;
+    const token = req.headers?.authorization;
 
-    const trimmedToken = token.trim();
+    const trimmedToken = token?.trim();
 
     if (!token) return res.status(400).json("Invalid token");
-    const jwtToken = trimmedToken.split("Bearer")[1].trim();
+    const jwtToken = trimmedToken.split("Bearer")[1]?.trim();
 
     if (!jwtToken) return res.status(400).json("Token not found!");
 
