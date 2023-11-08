@@ -34,8 +34,8 @@ cd server -  npm install  - npm start
 
 You can use this section to give credit to any libraries, tools, or individuals who inspired or contributed to your project.
 
-- [Library Name](link) - for inspiration
-- [Developer Name](link) - for their contributions
+
+- [Developer Name](https://github.com/shankarraojadav) - for their contributions
 
 ## Contact
 
