@@ -114,7 +114,7 @@ export const delteRecipe = async (req, res) => {
 export const getRecipesBySearch = async (req, res) => {
   try {
     const { keyword } = req.body;
-    console.log(keyword)
+    console.log(keyword);
     const user = req.user;
 
     const apiKey = process.env.Api_Key;
@@ -122,8 +122,52 @@ export const getRecipesBySearch = async (req, res) => {
     const url = `https://api.spoonacular.com/recipes/complexSearch?query=${keyword}&apiKey=${apiKey}`;
 
     const result = await axios.get(url);
-    return res.status(200).json(result.data.results)
+    return res.status(200).json(result.data.results);
   } catch (error) {
-    return res.status(400).json(error)
+    return res.status(400).json(error);
+  }
+};
+
+// get recipe data by id
+
+export const recipeDataById = async (req, res) => {
+  try {
+    console.log("Hi");
+    const { recipeId } = req.body;
+    console.log(recipeId);
+    if (recipeId === "undefined") {
+      return res
+        .status(400)
+        .json({ error: "recipeId is missing in the request body" });
+    }
+
+    const user = req.user;
+
+    const apiKey = process.env.Api_Key;
+
+    const url = `https://api.spoonacular.com/recipes/${recipeId}/information?apiKey=${apiKey}`;
+
+    const result = await axios.get(url);
+
+    const { id, image, title, summary, instructions, extendedIngredients } =
+      result.data;
+   
+    const recipeData = {
+      id: id,
+      title: title,
+      image: image,
+      summary: summary,
+      instructions: instructions,
+      ingredients: extendedIngredients.map((ingredient) => ({
+        name: ingredient.name,
+        amount: ingredient.amount,
+        unit: ingredient.unit,
+      })),
+    };
+
+    return res.status(200).json(recipeData);
+  } catch (error) {
+    console.error(error.message);
+    return res.status(400).json(error.message);
   }
 };

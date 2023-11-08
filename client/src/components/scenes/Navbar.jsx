@@ -36,6 +36,7 @@ export default function Navbar() {
   const handleLogout = () => {
     localStorage.removeItem("jwt");
     navigate("/");
+    window.location.reload();
   };
 
   return (

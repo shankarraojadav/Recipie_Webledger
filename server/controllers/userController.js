@@ -1,7 +1,6 @@
 import SignIn from "../models/userModel.js";
 import jwt from "jsonwebtoken";
 
-
 export const googleSignin = async (req, res) => {
   const { uid, displayName, email, photoURL } = req.body;
 
@@ -28,12 +27,11 @@ export const googleSignin = async (req, res) => {
   }
 };
 
-
 export const verifyToken = async (req, res) => {
   try {
     const user = req.user;
     return res.status(200).json(user);
   } catch (error) {
-    res.status(400).json("Error while verifying token", error)
+    res.status(400).json("Error while verifying token", error);
   }
-}
+};

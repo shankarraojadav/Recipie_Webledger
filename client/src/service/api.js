@@ -1,7 +1,9 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const url = "https://recipe-6w2j.onrender.com" || "http://localhost:4000";
+// "https://recipe-6w2j.onrender.com" || 
+
+const url = "http://localhost:4000";
 
 export const googleAuth = createAsyncThunk(
   "signin",
@@ -154,4 +156,31 @@ export const searchByKeywords = createAsyncThunk("keywords", async (keyword, {re
        "Failed to fetch  recipies data by keywords, please try after some time."
      );
   }
-})
+});
+
+
+
+// recipe information by id;
+
+
+export const getRecipeDetailsById = createAsyncThunk("recipeDetails", async (id, { rejectWithValue }) => {
+  try {
+    console.log("one",id)
+    const token = localStorage.getItem("jwt");
+
+    const response = await axios.post(`${url}/getRecDetails`, id, {
+      headers: {
+        authorization: "Bearer" + token,
+        Accept: "application/json"
+      }
+    });
+
+    console.log("reciperes", response.data);
+    return response.data
+  } catch (error) {
+    console.log(error.message)
+    return rejectWithValue(
+      "Failed to fetch  recipies data by id, please try after some time."
+    );
+  }
+});

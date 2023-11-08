@@ -5,6 +5,7 @@ import { getAllFavourites } from "../../../service/api";
 import "../recipieslist/recipieslist.css";
 import { DeleteForever } from "@mui/icons-material";
 import { deleteRecipe } from "../../../service/api";
+import { Link } from "react-router-dom";
 
 export default function Favourites() {
   const { data, isLoading, error } = useSelector(
@@ -21,8 +22,6 @@ export default function Favourites() {
 
   const handleDelete = (id) => {
     dispatch(deleteRecipe(id));
-    
-   
   };
 
   return (
@@ -30,8 +29,10 @@ export default function Favourites() {
       {data.map((recipies) => {
         return (
           <Box key={recipies.id} className="card">
-            <Box component="img" src={recipies.image} className="card_img" />
-            <h1 className="card_title">{recipies.title}</h1>
+            <Link to={`/recipe/${recipies.id}`}>
+              <Box component="img" src={recipies.image} className="card_img" />
+              <h1 className="card_title">{recipies.title}</h1>
+            </Link>
             <IconButton
               className="delete_btn"
               onClick={() => handleDelete(recipies.id)}

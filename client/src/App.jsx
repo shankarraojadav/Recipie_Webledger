@@ -17,8 +17,14 @@ export default function App () {
 
   const navigate = useNavigate();
 
-  const { isLoggedIn } = useSelector((state) => state.login || {});
+  const { user, isLoggedIn } = useSelector((state) => state.login || {});
   
+  useEffect(() => {
+    if (user) {
+      localStorage.setItem("jwt", user?.jwtToken);
+    }
+  }, [user]);
+
   const token = localStorage.getItem("jwt");
 
   useEffect(() => {

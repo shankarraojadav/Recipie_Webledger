@@ -15,11 +15,7 @@ export default function Login() {
   );
 
 
-  useEffect(() => {
-    if (user) {
-      localStorage.setItem("jwt", user?.jwtToken);
-    }
-  }, [user]);
+  
   //error handling
   const { updateNotification } = useContext(NotificationContext);
 

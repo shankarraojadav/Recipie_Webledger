@@ -40,7 +40,7 @@ export default function SearchResults() {
     <Box className="component">
       {data.map((recipe) => (
         <Box className="card" key={recipe.id}>
-          <Link to={`/recipe/${recipe.id}`} key={recipe.id}>
+          <Link to={`/recipe/${recipe.id}`} >
             <Box component="img" src={recipe.image} className="card_img" />
             <h1 className="card_title">{recipe.title}</h1>
           </Link>
